@@ -556,6 +556,11 @@ public final class TypeDefinitionExtendibleEnumerationImpl
 				return new ExtendibleEnumerationValue(this, "Effect", (AUID) javaValue);
 			}
 			
+			// Read past incorrect metadictionary entries in Nuendo AAF files
+			if (getName().equals("PluginCategoryType")) {
+				return new ExtendibleEnumerationValue(this, "Effect", (AUID) javaValue);
+			}
+			
 			throw new ClassCastException("Cannot create a new extendible enumeration property value from the given AUID identity as it does not match the identity of an enumeration element of type "
 				+ getName() + ".");
 		}
