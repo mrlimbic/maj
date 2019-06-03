@@ -72,6 +72,7 @@ import tv.amwa.maj.meta.TypeDefinitionVariableArray;
 import tv.amwa.maj.meta.TypeDefinitionWeakObjectReference;
 import tv.amwa.maj.record.AUID;
 import tv.amwa.maj.record.impl.AUIDImpl;
+import tv.amwa.maj.util.MajHacks;
 
 public class ResolutionEntry {
 
@@ -494,10 +495,20 @@ public class ResolutionEntry {
 		try {
 			ClassDefinition memberOf = property.getMemberOf();
 			Class<?> memberClass = memberOf.getJavaImplementation();
+			
+			String name = property.getName();
+			
+			// TODO Tried adding alias for this but isn't working - why?
+			if (MajHacks.componentAttributesAliasFix && name.equals("ComponentAttributeList")) {
+				name = "ComponentAttributes";
+				System.err.println("Substituted malfunctioning alias ComponentAttributeList for ComponentAttributes");
+			}
+			
 			return memberClass.getDeclaredField(
-					Character.toLowerCase(property.getName().charAt(0)) + property.getName().substring(1));
+					Character.toLowerCase(name.charAt(0)) + name.substring(1));
 		}
 		catch (NoSuchFieldException nsfe) {
+			nsfe.printStackTrace();
 			return null;
 		}
 	}
