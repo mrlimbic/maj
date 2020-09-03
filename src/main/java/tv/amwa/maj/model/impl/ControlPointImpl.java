@@ -79,6 +79,7 @@ import tv.amwa.maj.model.ControlPoint;
 import tv.amwa.maj.record.AUID;
 import tv.amwa.maj.record.Rational;
 import tv.amwa.maj.record.impl.RationalImpl;
+import tv.amwa.maj.util.MajHacks;
 
 
 /**
@@ -219,8 +220,13 @@ public class ControlPointImpl
 			throw new NullPointerException("Cannot set the time for a control point from a null value.");
 		
 		double rangeCheckValue = controlPointTime.doubleValue();
-		if ((rangeCheckValue < 0.0) || (rangeCheckValue > 1.0))
-			throw new RationalRangeException("Time value is outside the acceptable inclusive range of 0.0 to 1.0.");
+		if ((rangeCheckValue < 0.0) || (rangeCheckValue > 1.0)) {
+			if (MajHacks.ignoreControlPointTimeRange) {
+				System.err.println("Ignoring control point time out of range: " + controlPointTime);
+			} else {
+				throw new RationalRangeException("Time value is outside the acceptable inclusive range of 0.0 to 1.0.");				
+			}		
+		}
 		
 		this.controlPointTime = controlPointTime.clone();
 	}
