@@ -116,6 +116,7 @@ import tv.amwa.maj.meta.TypeDefinitionStrongObjectReference;
 import tv.amwa.maj.meta.TypeDefinitionVariableArray;
 import tv.amwa.maj.misctype.AAFString;
 import tv.amwa.maj.record.AUID;
+import tv.amwa.maj.util.MajHacks;
 import tv.amwa.maj.util.Utilities;
 
 
@@ -1050,10 +1051,29 @@ public final class TypeDefinitionVariableArrayImpl
 			int elementSize = buffer.getInt();
 
 			if (this.equals(TypeDefinitions.UInt8Array)) {
+				// TODO This looks suspicious - why would it be greater?
+				// MC sometimes says 0 for count and 128 for size
+				// so is this a hacky workaround for MC?
 				if (elementSize > 1) {
 					setCount = elementSize;
 					elementSize = 1;
 				}
+			}
+			
+			// Element type not set for the following MC extensions
+			// AvidBagOfBits
+			// AudioSuitePlugInChunk
+			// AudioSuitePIChunkArray
+			// AudioSuitePIChunkData
+			// TODO Build drivers for these extensions to see element type works then
+			if (variableArrayElementType == null && MajHacks.ignoreVariableArrayNoElementType) {
+				System.err.println("Variable array has no element type. Returning empty array.");
+				//System.err.println(this);
+				// Element type not known so give back empty array
+				// This is a hack that 'works' without adding correct extensions
+				// but ideal solution is to build and register extensions
+				// It appears to be safe to ignore the buffer
+				return arrayValue;
 			}
 			
 			for ( int u = 0 ; u < setCount ; u++ ) {

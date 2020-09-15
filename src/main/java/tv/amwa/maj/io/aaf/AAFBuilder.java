@@ -163,6 +163,7 @@ import tv.amwa.maj.model.impl.ApplicationPluginObjectImpl;
 import tv.amwa.maj.model.impl.PrefaceImpl;
 import tv.amwa.maj.record.AUID;
 import tv.amwa.maj.record.impl.AUIDImpl;
+import tv.amwa.maj.util.MajHacks;
 import tv.amwa.maj.util.Utilities;
 
 public class AAFBuilder 
@@ -748,8 +749,15 @@ public class AAFBuilder
 			
 			for ( String path : pathMap.keySet() ) {
 				MetadataObject item = pathMap.get(path);
-				if ((item instanceof MetadataObject) &&
-						(!(thisScheme.containsMetaDefinition((MetaDefinition) item))) ) continue;
+				
+				if (MajHacks.metaDataObjectCastFix) {
+					if ((item instanceof MetaDefinition) &&
+							(!(thisScheme.containsMetaDefinition((MetaDefinition) item))) ) continue;					
+				} else {
+					// TODO This caused problems and looks suspicious - casting to wrong object?
+					if ((item instanceof MetadataObject) &&
+							(!(thisScheme.containsMetaDefinition((MetaDefinition) item))) ) continue;					
+				}
 				
 				if (item instanceof PropertyDefinition) {
 					PropertyDefinition propertyDefinition = (PropertyDefinition) item;
