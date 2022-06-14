@@ -561,6 +561,16 @@ public final class TypeDefinitionExtendibleEnumerationImpl
 				return new ExtendibleEnumerationValue(this, "Effect", (AUID) javaValue);
 			}
 			
+			// Read past incorrect metadictionary entries in Media Composer AAF files
+			if (getName().equals("ColorPrimariesType")) {
+				return new ExtendibleEnumerationValue(this, "ColorPrimaries", (AUID) javaValue);
+			}
+			
+			// Read past incorrect metadictionary entries in Media Composer AAF files
+			if (getName().equals("TransferCharacteristicType")) {
+				return new ExtendibleEnumerationValue(this, "TransferCharacteristic", (AUID) javaValue);
+			}
+
 			throw new ClassCastException("Cannot create a new extendible enumeration property value from the given AUID identity as it does not match the identity of an enumeration element of type "
 				+ getName() + ".");
 		}
