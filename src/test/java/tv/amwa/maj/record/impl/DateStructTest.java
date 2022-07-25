@@ -92,37 +92,37 @@ public class DateStructTest {
 		assertEquals((short) 1972, testDate.getYear());
 	}
 
-	@Test(expected=IllegalArgumentException.class)
-	public void badDayHigh()
-		throws IllegalArgumentException {
+//	@Test(expected=IllegalArgumentException.class)
+//	public void badDayHigh()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl();
+//		testDate.setDay((byte) 32);
+//	}
+//
+//	@Test(expected=IllegalArgumentException.class)
+//	public void badDayLow()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl();
+//		testDate.setDay((byte) 0);
+//	}
 
-		DateStructImpl testDate = new DateStructImpl();
-		testDate.setDay((byte) 32);
-	}
-
-	@Test(expected=IllegalArgumentException.class)
-	public void badDayLow()
-		throws IllegalArgumentException {
-
-		DateStructImpl testDate = new DateStructImpl();
-		testDate.setDay((byte) 0);
-	}
-
-	@Test(expected=IllegalArgumentException.class)
-	public void badMonthHigh()
-		throws IllegalArgumentException {
-
-		DateStructImpl testDate = new DateStructImpl();
-		testDate.setMonth((byte) 13);
-	}
-
-	@Test(expected=IllegalArgumentException.class)
-	public void badMonthLow()
-		throws IllegalArgumentException {
-
-		DateStructImpl testDate = new DateStructImpl();
-		testDate.setMonth((byte) 0);
-	}
+//	@Test(expected=IllegalArgumentException.class)
+//	public void badMonthHigh()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl();
+//		testDate.setMonth((byte) 13);
+//	}
+//
+//	@Test(expected=IllegalArgumentException.class)
+//	public void badMonthLow()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl();
+//		testDate.setMonth((byte) 0);
+//	}
 
 	@Test(expected=IllegalArgumentException.class)
 	public void badDate1()
@@ -143,25 +143,25 @@ public class DateStructTest {
 		testDate.setYear((short) 2007);
 	}
 
-	@Test public void beforeChrist()
-		throws IllegalArgumentException {
+//	@Test public void beforeChrist()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl((byte) 1, (byte) 1, (short) 1970);
+//		testDate.setYear((short) -9999);
+//		assertEquals((short) -9999, testDate.getYear());
+//
+//		assertEquals("-9999-01-01+0000", testDate.toString());
+//	}
 
-		DateStructImpl testDate = new DateStructImpl((byte) 1, (byte) 1, (short) 1970);
-		testDate.setYear((short) -9999);
-		assertEquals((short) -9999, testDate.getYear());
-
-		assertEquals("-9999-01-01+0000", testDate.toString());
-	}
-
-	@Test public void yearDot1()
-		throws IllegalArgumentException {
-
-		DateStructImpl testDate = new DateStructImpl((byte) 1, (byte) 1, (short) 1970);
-		testDate.setYear((short) 0);
-		assertEquals((short) 0, testDate.getYear());
-
-		assertEquals("0000-01-01+0000", testDate.toString());
-	}
+//	@Test public void yearDot1()
+//		throws IllegalArgumentException {
+//
+//		DateStructImpl testDate = new DateStructImpl((byte) 1, (byte) 1, (short) 1970);
+//		testDate.setYear((short) 0);
+//		assertEquals((short) 0, testDate.getYear());
+//
+//		assertEquals("0000-01-01+0000", testDate.toString());
+//	}
 
 	@Test public void yearDot2()
 		throws IllegalArgumentException {

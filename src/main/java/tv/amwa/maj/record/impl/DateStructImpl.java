@@ -69,6 +69,7 @@ import tv.amwa.maj.integer.Int16;
 import tv.amwa.maj.integer.UInt8;
 import tv.amwa.maj.io.xml.XMLBuilder;
 import tv.amwa.maj.record.DateStruct;
+import tv.amwa.maj.util.MajHacks;
 import tv.amwa.maj.util.Utilities;
 
 // TODO tests for 29th Feb and 31st of month as the default value ... dependency on the order values are set
@@ -192,9 +193,20 @@ public final class DateStructImpl
 				@UInt8 byte day)
 		throws IllegalArgumentException {
 
-		if ((day < 1) || (day > 31))
-			throw new IllegalArgumentException("The day of the month must be in the range 1 to 31.");
-
+		if (MajHacks.badDateFix) {
+			// HACK just bind to sensible range
+			if (day < 1) {
+				day = 1;
+			}
+			
+			if (day > 31) {
+				day = 31;
+			}
+		} else {
+			if ((day < 1) || (day > 31))
+				throw new IllegalArgumentException("The day of the month must be in the range 1 to 31.");			
+		}
+	
 		dateValue.clear(Calendar.DAY_OF_MONTH);
 		dateValue.set(Calendar.DAY_OF_MONTH, day);
 
@@ -213,8 +225,19 @@ public final class DateStructImpl
 			@UInt8 byte month)
 		throws IllegalArgumentException {
 
-		if ((month < 1) || (month > 12))
-			throw new IllegalArgumentException("The month must lie in the range 1 to 12.");
+		if (MajHacks.badDateFix) {
+			// HACK just bind it to a sensible value
+			if (month < 1) {
+				month = 1;
+			}
+			
+			if (month > 12) {
+				month = 12;
+			}
+		} else {
+			if ((month < 1) || (month > 12))
+				throw new IllegalArgumentException("The month must lie in the range 1 to 12.");			
+		}	
 
 		dateValue.clear(Calendar.MONTH);
 		dateValue.set(Calendar.MONTH, ((int) month) - 1);
@@ -239,6 +262,13 @@ public final class DateStructImpl
 			@Int16 short year)
 		throws IllegalArgumentException {
 
+		if (MajHacks.badDateFix) {
+			if (year < 1970) {
+				// HACK just bind to sensible value
+				year = 1970;
+			}
+		}
+		
 		// Uncomment to test what happens on 29th Feb in a leap year
 //		dateValue.set(Calendar.DAY_OF_MONTH, 29);
 //		dateValue.set(Calendar.MONTH, Calendar.FEBRUARY);

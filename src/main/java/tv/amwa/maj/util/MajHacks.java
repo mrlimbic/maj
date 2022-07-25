@@ -5,4 +5,5 @@ public class MajHacks {
 	public static boolean metaDataObjectCastFix = true;
 	public static boolean componentAttributesAliasFix = true;
 	public static boolean ignoreControlPointTimeRange = true;
+	public static boolean badDateFix = true;
 }
