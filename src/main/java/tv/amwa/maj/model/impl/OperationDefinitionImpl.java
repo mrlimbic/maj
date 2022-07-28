@@ -395,8 +395,11 @@ public class OperationDefinitionImpl
 	public void setBypass(
 			Integer bypass) {
 
-		if ((bypass != null) && (bypass < 0))
-			throw new IllegalArgumentException("Cannot set the bypass value for this operation definition to a negative value.");
+		if ((bypass != null) && (bypass < 0)) {
+			// Hack for Lightworks which puts in -1 instead of 0 for not present
+			bypass = null;
+//			throw new IllegalArgumentException("Cannot set the bypass value for this operation definition to a negative value.");
+		}	
 		
 		this.bypass = bypass;
 	}
