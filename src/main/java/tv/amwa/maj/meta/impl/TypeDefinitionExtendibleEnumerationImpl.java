@@ -570,6 +570,11 @@ public final class TypeDefinitionExtendibleEnumerationImpl
 			if (getName().equals("TransferCharacteristicType")) {
 				return new ExtendibleEnumerationValue(this, "TransferCharacteristic", (AUID) javaValue);
 			}
+			
+			// Read past incorrect metadictionary entries in AAF files
+			if (getName().equals("CodingEquationsType")) {
+				return new ExtendibleEnumerationValue(this, "CodingEquationsType", (AUID) javaValue);
+			}
 
 			throw new ClassCastException("Cannot create a new extendible enumeration property value from the given AUID identity as it does not match the identity of an enumeration element of type "
 				+ getName() + ".");
