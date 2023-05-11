@@ -88,8 +88,8 @@ public class AVCSubDescriptorImpl
 			@UInt8 byte avcDecodingDelay)
 		throws IllegalArgumentException {
 
-		if (avcDecodingDelay < 0)
-			throw new IllegalArgumentException("Cannot set the AVC decoding delay to a negative value.");
+//		if (avcDecodingDelay < 0)
+//			throw new IllegalArgumentException("Cannot set the AVC decoding delay to a negative value.");
 
 		this.avcDecodingDelay = avcDecodingDelay;
 	}
