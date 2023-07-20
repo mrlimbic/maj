@@ -331,8 +331,8 @@ public class OperationGroupImpl
 			return;
 		}
 
-		if (bypassOverride < 1)
-			throw new IllegalArgumentException("The bypass override value must be a 1-based index value.");
+//		if (bypassOverride < 1)
+//			throw new IllegalArgumentException("The bypass override value must be a 1-based index value.");
 		
 		this.bypassOverride = bypassOverride;
 	}
