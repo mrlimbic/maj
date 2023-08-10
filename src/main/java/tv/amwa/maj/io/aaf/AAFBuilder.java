@@ -315,7 +315,18 @@ public class AAFBuilder
 					
 					ByteBuffer buffer = ByteBuffer.wrap(data);
 
-					MetadataObject mdObject = decodeProperties(buffer, event.getPath().toString());
+					MetadataObject mdObject = null;
+					
+					if (MajHacks.ignoreDecodePropertiesFail) {
+						// Wrap in exception so can ignore
+						try {
+							mdObject = decodeProperties(buffer, event.getPath().toString());
+						} catch (Exception e) {
+							System.err.println("Unable to decode properties for event: " + event.getPath().toString() + ": " + e);
+						}
+					} else {
+						mdObject = decodeProperties(buffer, event.getPath().toString());
+					}			
 					
 					if (mdObject == null) return;
 					
