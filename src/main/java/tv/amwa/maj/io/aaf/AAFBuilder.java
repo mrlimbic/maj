@@ -804,7 +804,12 @@ public class AAFBuilder
 						if ((classDefinition.equals(resolution.getTarget())) &&
 								(resolution.getProperty().getAUID().equals(CommonConstants.ParentClassID))) {
 							resolution.resolve(pathMap, indexMap, streamMap);
-							classDefinition.setJavaImplementation(classDefinition.getParent().getJavaImplementation());
+							
+							try {
+								classDefinition.setJavaImplementation(classDefinition.getParent().getJavaImplementation());
+							} catch (PropertyNotPresentException pnpe) {
+								System.err.println("No java implementation of " + classDefinition.getParent().getName());
+							}
 							// System.out.println(classDefinition.toString());
 						}
 					}
